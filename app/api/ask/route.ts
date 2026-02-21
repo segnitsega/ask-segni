@@ -61,14 +61,22 @@ Answer:`;
       temperature: 0.3,
     });
 
-    const answer =
-      response.choices?.[0]?.message?.content ??
-      "I'm sorry, I couldn't generate an answer.";
-    return NextResponse.json({ answer });
+    const responseData: ApiResponse<string> = {
+      success: true,
+      data:
+        response.choices?.[0]?.message?.content ??
+        "I'm sorry, I couldn't generate an answer.",
+    };
+
+    return NextResponse.json(responseData);
   } catch (error) {
     console.error("API Error:", error);
-    return NextResponse.json(
-      { error: "Something went wrong processing your request" },
+
+    return NextResponse.json<ApiResponse<never>>(
+      {
+        success: false,
+        error: "Something went wrong processing your request",
+      },
       { status: 500 },
     );
   }
