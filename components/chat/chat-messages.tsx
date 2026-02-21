@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { ChatMessage } from "./chat-message";
 import { Spinner } from "@/components/ui/spinner";
+import { ChatBubble } from "./chat-bubble";
 
 interface ChatMessagesProps {
   messages: Message[];
@@ -20,7 +21,8 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
     <div className="flex-1 overflow-y-auto bg-background">
       <div className="container mx-auto px-4 py-6 space-y-6 max-w-4xl">
         {messages.map((message) => (
-          <ChatMessage key={message.id} message={message} />
+          // <ChatMessage key={message.id} message={message} />
+          <ChatBubble key={message.id} message={message} />
         ))}
 
         {isLoading && (
